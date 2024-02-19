@@ -52,7 +52,7 @@ while user_point != 'quit' and len(computer_points) < 5 and winner == '' and dra
             computer_choice = 'x'
 
     user_point = int(input('Please select where (1-9): '))
-    while user_point == computer_point or user_point in computer_points or computer_point in user_points:
+    while user_point == computer_point or user_point in computer_points or computer_point in user_points or user_point in user_points:
         user_point = int(input('Please select where (1-9): '))
 
     user_points.append(user_point)

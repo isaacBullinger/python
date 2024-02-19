@@ -95,18 +95,13 @@ while len(user_points) < 5 and winner == '' and draw == False:
         for number in numbers:
             if computer_point == number:
                 display[number - 1] = computer_choice
-
-        print()
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print_board(display)
-        check_all(display)
     else:
         break
 
-    #print()
-    #os.system('cls' if os.name == 'nt' else 'clear')
-    #print_board(display)
-    #check_all(display)
+    print()
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print_board(display)
+    check_all(display)
 
 if (choice == 'x' and winner == 'x') or (choice == 'o' and winner == 'o'):
     who_won = 'user'

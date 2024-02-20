@@ -1,8 +1,6 @@
 import random
 import os
 
-# Known bugs: There is a draw if one is selected.
-
 choice = ''
 computer_choice = ''
 display = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
@@ -11,7 +9,6 @@ user_points = []
 computer_points = []
 number = int()
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-guide = '_|_|_    1|2|3\n_|_|_    4|5|6\n | |     7|8|9'
 user_point = int()
 computer_point = int()
 winner = ''
@@ -42,8 +39,9 @@ def check_all(display):
     elif display[2] == display[4] == display[6] and display[2] != ' ' and display[4] != ' ' and display[6] != ' ':
         winner = display[2]
 
+os.system('cls' if os.name == 'nt' else 'clear')
 print('Welcome to tic-tac-toe!')
-print(guide)
+name = str(input('What is your name? '))
 
 while len(user_points) < 5 and winner == '' and draw == False:
 
@@ -51,8 +49,10 @@ while len(user_points) < 5 and winner == '' and draw == False:
         choice = input('Choose x or o: ')
         if choice == 'x':
             computer_choice = 'o'
-        else:
+        elif choice == 'o':
             computer_choice = 'x'
+        else:
+            print('Not an x or o, try again...')
 
     os.system('cls' if os.name == 'nt' else 'clear')
     print()
@@ -104,7 +104,7 @@ while len(user_points) < 5 and winner == '' and draw == False:
     check_all(display)
 
 if (choice == 'x' and winner == 'x') or (choice == 'o' and winner == 'o'):
-    who_won = 'user'
+    who_won = name
     who_chose = choice
 elif (computer_choice == 'x' and winner == 'x') or (computer_choice == 'o' and winner == 'o'):
     who_won = 'computer'
@@ -113,6 +113,6 @@ else:
     who_won = 'draw'
     who_chose = 'no one'
 if winner != 'draw' and who_won != 'draw':
-    print(f'\nThe winner is {who_won} who chose {who_chose}!')
+    print(f'\nThe winner is {who_won}, who chose {who_chose}!')
 else:
     print(f'{who_chose.capitalize()} won, it is a {who_won}...')

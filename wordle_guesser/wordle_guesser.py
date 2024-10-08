@@ -134,6 +134,7 @@ while turn <= 5 or len(words) > 1:
   words = sorted(words, key=score_word, reverse=True)
   print(words)
 
+  # handle duplicate letters
   if turn <= 3:
     words = [word for word in words if len(set(word)) == len(word)]
   
@@ -148,5 +149,5 @@ while turn <= 5 or len(words) > 1:
 
   turn += 1
 
-# End of game
+# end of game
 print("All green! Stopping guesses.")

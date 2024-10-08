@@ -102,18 +102,17 @@ guess = 'arise'
 green_indices = []
 yellow_letters = defaultdict(list)
 gray_letters = set()
+used_letters = set()
 
 time.sleep(3)
 
-while turn <= 6:
+while turn <= 5 or len(words) > 1:
   print(f"Turn {turn}: Guessing '{guess}'")
 
   type_guess(guess)
-
   time.sleep(2)
 
   y_coord = start_y_coord + (turn - 1) * grid_space
-
   coords = [(start_x_coord + j * grid_space, y_coord) for j in range(5)]
 
   for i, coord in enumerate(coords):
@@ -134,7 +133,16 @@ while turn <= 6:
 
   words = sorted(words, key=score_word, reverse=True)
   print(words)
-  guess = words[0]
+
+  if turn <= 3:
+    words = [word for word in words if len(set(word)) == len(word)]
+  
+  if words:
+    guess = words[0]
+
+    used_letters.update(set(guess))
+  else:
+    break
 
   print(f"Next guess: {guess}")
 

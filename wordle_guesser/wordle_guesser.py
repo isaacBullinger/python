@@ -39,27 +39,35 @@ for word in words:
 
 for position, freq in letter_pos.items():
   sorted_pos = sorted(freq.items(), key=lambda x: x[1], reverse=True)
-  print(f"Position {position}:")
-  for letter, count in sorted_pos:
-    print(f"  {letter}: {count}")
+  # print(f"Position {position}:")
+  # for letter, count in sorted_pos:
+    # print(f"  {letter}: {count}")
 
 # define colers
 green=(75, 140, 82)
 yellow=(186, 157, 69)
 gray=(58, 58, 60)
-# black=(18,18,19)
 
 # TODO let user calibrate position using cursor (see locate_pixel.py)
 # define coordinates for the game board
 square = 52
 gap = 10
 grid_space = square + gap
+
+# print("Move mouse to any corner inside of the top left square in the game. You have 5 seconds.")
+
+# time.sleep(5)
+
 start_x_coord = 340
 start_y_coord = 580
+
+# start_x_coord, start_y_coord = pyautogui.position()
+
 coords = []
 
 # print(coords)
 
+# filter words based on pixel colors
 def filter_words(words, guess, green_indices, yellow_letters, gray_letters):
   matching_words = []
 
@@ -70,16 +78,23 @@ def filter_words(words, guess, green_indices, yellow_letters, gray_letters):
       if word[index] != guess[index]:
         match = False
         break
-    
+
     for letter, indices in yellow_letters.items():
       if letter not in word or any(word[i] == letter for i in indices):
         match = False
         break
+    
+    letter_counts = {}
+    for letter in word:
+      letter_counts[letter] = letter_counts.get(letter, 0) + 1
 
     for letter in gray_letters:
-      if letter in word and letter not in yellow_letters and all(word[i] != letter for i in green_indices):
-        match = False
-    
+      if letter_counts.get(letter, 0) > 0:
+        for i, char in enumerate(word):
+          if letter in word and letter not in yellow_letters and all(word[i] != letter for i in green_indices):
+            match = False
+            break
+
     if match:
       matching_words.append(word)
   
@@ -135,8 +150,8 @@ while turn <= 5 or len(words) > 1:
   print(words)
 
   # handle duplicate letters
-  if turn <= 3:
-    words = [word for word in words if len(set(word)) == len(word)]
+  # if turn <= 3:
+  #   words = [word for word in words if len(set(word)) == len(word)]
   
   if words:
     guess = words[0]

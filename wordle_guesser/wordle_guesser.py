@@ -59,7 +59,7 @@ grid_space = square + gap
 # time.sleep(5)
 
 start_x_coord = 340
-start_y_coord = 580
+start_y_coord = 570
 
 # start_x_coord, start_y_coord = pyautogui.position()
 
@@ -121,7 +121,7 @@ used_letters = set()
 
 time.sleep(3)
 
-while turn <= 5 or len(words) > 1:
+while turn <= 5 and len(words) > 1:
   print(f"Turn {turn}: Guessing '{guess}'")
 
   type_guess(guess)
@@ -144,25 +144,23 @@ while turn <= 5 or len(words) > 1:
     else:
       gray_letters.add(guess[i])
 
+  if len(green_indices) == 5:
+    print("All green! Stopping guesses.")
+    break
+
   words = filter_words(words, guess, green_indices, yellow_letters, gray_letters)
 
   words = sorted(words, key=score_word, reverse=True)
   print(words)
 
-  # handle duplicate letters
-  # if turn <= 3:
-  #   words = [word for word in words if len(set(word)) == len(word)]
-  
   if words:
     guess = words[0]
+    print(f"Next guess: {guess}")
 
     used_letters.update(set(guess))
   else:
     break
 
-  print(f"Next guess: {guess}")
-
   turn += 1
 
-# end of game
-print("All green! Stopping guesses.")
+print("End of game.")

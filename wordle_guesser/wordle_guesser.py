@@ -114,6 +114,7 @@ def type_guess(guess):
 
 turn = 1
 guess = 'arise'
+last_guess = ''
 green_indices = []
 yellow_letters = defaultdict(list)
 gray_letters = set()
@@ -121,7 +122,8 @@ used_letters = set()
 
 time.sleep(3)
 
-while turn <= 5 and len(words) > 1:
+while turn <= 6 and len(words) > 0:
+  # print(last_guess)
   print(f"Turn {turn}: Guessing '{guess}'")
 
   type_guess(guess)
@@ -155,7 +157,8 @@ while turn <= 5 and len(words) > 1:
 
   if words:
     guess = words[0]
-    print(f"Next guess: {guess}")
+
+    last_guess = guess
 
     used_letters.update(set(guess))
   else:
@@ -164,3 +167,5 @@ while turn <= 5 and len(words) > 1:
   turn += 1
 
 print("End of game.")
+
+# Implement more logic for grey letters, exclude repeat words.
